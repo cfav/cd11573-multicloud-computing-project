@@ -1,5 +1,30 @@
 # A Multi-Cloud Application
 
+
+## Rubric-related items
+
+### Diagram
+<img src='./screenshots/diagram.JPG'>
+
+### Reason for selecting Amazon DynamoDB
+
+Both AWS DynamoDB and its Azure counterpart, Cosmos DB, are good choices for the NoSQL DB requirements for the app. Both are generally globally available and highly scalable. To support the company's choice for AWS DynamoDB, the pricing calculators [here](https://azure.microsoft.com/en-us/pricing/calculator/) and [here](https://calculator.aws/#/addService/DynamoDB) indicates that DynamoDB seems cheaper compared to Cosmos when provisioned for 1 year. With that setting, DynamoDB computes to around 2000USD while Cosmos is closer to 3000USD. The pricing calculator also allows setting write and read request capacity for DynamoDB while Cosmos doesn't seem to have this feature (also mentioned [here(https://medium.com/intive-developers/amazon-dynamo-db-vs-azure-cosmos-db-2343e700fd1)]. Another good reason to consider DynamoDB is it's more widely adopted. [Stackshare](https://stackshare.io/stackups/amazon-dynamodb-vs-azure-cosmos-db) shows that there are a lot more companies using it. This might make it easier to maintain and develop because we can learn from more people.
+
+
+
+### Screenshots
+
+#### AWS App Running
+<img src='./screenshots/aws_running.png'>
+#### Azure App Running
+<img src='./screenshots/azure_running.png'>
+#### AWS Terraform Destroy Output
+<img src='./screenshots/aws_tf_destroy.png'>
+#### Azure Terraform Destroy Output
+<img src='./screenshots/azure_tf_destroy.png'>
+
+
+
 ## Getting Started
 
 This folder contains the scaffolding Terraform code to deploy your project. Once you select the appropriate cloud providers, you will need to research specific Terraform modules for your select service and add those modules to the provided Terraform scaffolding. 
