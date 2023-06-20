@@ -171,7 +171,7 @@ resource "aws_ecs_task_definition" "udacity_app" {
   container_definitions = <<DEFINITION
 [
   {
-    "image": "docker.io/cfav/aws_app:1.0",
+    "image": "docker.io/tscotto5/aws_app:1.0",
     "cpu": 1024,
     "memory": 2048,
     "name": "udacity-app",
