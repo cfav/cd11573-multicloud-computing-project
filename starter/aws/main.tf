@@ -250,9 +250,4 @@ resource "aws_dynamodb_table" "udacity" {
     projection_type    = "INCLUDE"
     non_key_attributes = ["UserId"]
   }
-
-  tags = {
-    Name        = "udacity-cfav-aws-dynamodb"
-    Environment = "production"
-  }
 }

@@ -34,8 +34,8 @@ resource "azurerm_container_group" "udacity" {
 
 resource "azurerm_sql_server" "udacity_app" {
   name                         = "udacity-cfav-azure-sql"
-  resource_group_name          = azurerm_resource_group.udacity.name
-  location                     = azurerm_resource_group.udacity.location
+  resource_group_name          = data.azurerm_resource_group.udacity.name
+  location                     = data.azurerm_resource_group.udacity.location
   version                      = "12.0"
 
   tags = {
@@ -45,7 +45,7 @@ resource "azurerm_sql_server" "udacity_app" {
 
 resource "azurerm_windows_web_app" "udacity" {
   name                = "udacity-cfav-azure-dotnet-app"
-  resource_group_name = azurerm_resource_group.udacity.name
+  resource_group_name = data.azurerm_resource_group.udacity.name
 
   site_config {}
 }
