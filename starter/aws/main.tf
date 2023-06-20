@@ -213,19 +213,46 @@ resource "aws_s3_bucket" "udacity_app" {
   }
 }
 
-resource "aws_dynamodb_table" "udacity_app" {
-  name             = "udacity-cfav-aws-dynamodb"
-  hash_key         = "TestTableHashKey"
-  billing_mode     = "PAY_PER_REQUEST"
-  stream_enabled   = true
-  stream_view_type = "NEW_AND_OLD_IMAGES"
+resource "aws_dynamodb_table" "udacity" {
+  name           = "udacity-cfav-aws-dynamodb"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 20
+  write_capacity = 20
+  hash_key       = "UserId"
+  range_key      = "GameTitle"
 
   attribute {
-    name = "TestTableHashKey"
+    name = "UserId"
     type = "S"
   }
 
-  replica {
-    region_name = "us-east-2"
+  attribute {
+    name = "GameTitle"
+    type = "S"
+  }
+
+  attribute {
+    name = "TopScore"
+    type = "N"
+  }
+
+  ttl {
+    attribute_name = "TimeToExist"
+    enabled        = false
+  }
+
+  global_secondary_index {
+    name               = "GameTitleIndex"
+    hash_key           = "GameTitle"
+    range_key          = "TopScore"
+    write_capacity     = 10
+    read_capacity      = 10
+    projection_type    = "INCLUDE"
+    non_key_attributes = ["UserId"]
+  }
+
+  tags = {
+    Name        = "udacity-cfav-aws-dynamodb"
+    Environment = "production"
   }
 }
