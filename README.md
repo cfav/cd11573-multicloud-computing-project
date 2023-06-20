@@ -16,10 +16,13 @@ Both AWS DynamoDB and its Azure counterpart, Cosmos DB, are good choices for the
 
 #### AWS App Running
 <img src='./screenshots/aws_running.png'>
+
 #### Azure App Running
 <img src='./screenshots/azure_running.png'>
+
 #### AWS Terraform Destroy Output
 <img src='./screenshots/aws_tf_destroy.png'>
+
 #### Azure Terraform Destroy Output
 <img src='./screenshots/azure_tf_destroy.png'>
 
