@@ -43,9 +43,19 @@ resource "azurerm_sql_server" "udacity_app" {
   }
 }
 
+resource "azurerm_service_plan" "udacity" {
+  name                = "udacity-cfav-azure-service-plan"
+  resource_group_name = data.azurerm_resource_group.udacity.name
+  location            = data.azurerm_resource_group.udacity.location
+  sku_name            = "P1v2"
+  os_type             = "Windows"
+}
+
 resource "azurerm_windows_web_app" "udacity" {
   name                = "udacity-cfav-azure-dotnet-app"
   resource_group_name = data.azurerm_resource_group.udacity.name
+  location            = data.azurerm_service_plan.udacity.location
+  service_plan_id     = data.azurerm_service_plan.udacity.id
 
   site_config {}
 }
