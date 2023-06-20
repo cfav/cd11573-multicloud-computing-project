@@ -171,7 +171,7 @@ resource "aws_ecs_task_definition" "udacity_app" {
   container_definitions = <<DEFINITION
 [
   {
-    "image": "docker.io/tscotto5/aws_app:1.0",
+    "image": "docker.io/cfav/aws_app:1.0",
     "cpu": 1024,
     "memory": 2048,
     "name": "udacity-app",
@@ -179,11 +179,11 @@ resource "aws_ecs_task_definition" "udacity_app" {
     "environment": [
       {
         "name": "AZURE_SQL_SERVER",
-        "value": "udacity-tscotto-azure-sql"
+        "value": "udacity-cfav-azure-sql"
       },
       {
         "name": "AZURE_DOTNET_APP",
-        "value": "udacity-tscotto-azure-dotnet-app"
+        "value": "udacity-cfav-azure-dotnet-app"
       }
     ],
     "portMappings": [
@@ -204,4 +204,32 @@ variable "app_count" {
 
 ####### Your Additions Will Start Here ######
 
-test
+resource "aws_s3_bucket" "udacity_app" {
+  bucket = "udacity-cfav-aws-s3-bucket"
+
+  tags = {
+    Name        = "udacity-cfav-aws-s3-bucket"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_dynamodb_table" "udacity_app" {
+  name             = "udacity-cfav-aws-dynamodb"
+  hash_key         = "TestTableHashKey"
+  billing_mode     = "PAY_PER_REQUEST"
+  stream_enabled   = true
+  stream_view_type = "NEW_AND_OLD_IMAGES"
+
+  attribute {
+    name = "TestTableHashKey"
+    type = "S"
+  }
+
+  replica {
+    region_name = "us-east-2"
+  }
+
+  replica {
+    region_name = "us-west-2"
+  }
+}

@@ -7,17 +7,17 @@ resource "azurerm_container_group" "udacity" {
   location            = data.azurerm_resource_group.udacity.location
   resource_group_name = data.azurerm_resource_group.udacity.name
   ip_address_type     = "Public"
-  dns_name_label      = "udacity-tscotto-azure"
+  dns_name_label      = "udacity-cfav-azure"
   os_type             = "Linux"
 
   container {
     name   = "azure-container-app"
-    image  = "docker.io/tscotto5/azure_app:1.0"
+    image  = "docker.io/cfav/azure_app:1.0"
     cpu    = "0.5"
     memory = "1.5"
     environment_variables = {
-      "AWS_S3_BUCKET"       = "udacity-tscotto-aws-s3-bucket",
-      "AWS_DYNAMO_INSTANCE" = "udacity-tscotto-aws-dynamodb"
+      "AWS_S3_BUCKET"       = "udacity-cfav-aws-s3-bucket",
+      "AWS_DYNAMO_INSTANCE" = "udacity-cfav-aws-dynamodb"
     }
     ports {
       port     = 3000
@@ -30,3 +30,22 @@ resource "azurerm_container_group" "udacity" {
 }
 
 ####### Your Additions Will Start Here ######
+
+
+resource "azurerm_sql_server" "udacity_app" {
+  name                         = "udacity-cfav-azure-sql"
+  resource_group_name          = azurerm_resource_group.udacity.name
+  location                     = azurerm_resource_group.udacity.location
+  version                      = "12.0"
+
+  tags = {
+    environment = "udacity"
+  }
+}
+
+resource "azurerm_windows_web_app" "udacity" {
+  name                = "udacity-cfav-azure-dotnet-app"
+  resource_group_name = azurerm_resource_group.udacity.name
+
+  site_config {}
+}
