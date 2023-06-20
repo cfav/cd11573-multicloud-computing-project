@@ -228,8 +228,4 @@ resource "aws_dynamodb_table" "udacity_app" {
   replica {
     region_name = "us-east-2"
   }
-
-  replica {
-    region_name = "us-west-2"
-  }
 }
